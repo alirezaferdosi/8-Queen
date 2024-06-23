@@ -13,64 +13,34 @@ public class Graph {
         return board;
     }
 
-    public Boolean checkRow(Board board){
-        for(int i=0; i<board.getSize() ; i++){
-            if(numberOfQueenInRow(board,i) > 1){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public Boolean checkColumn(Board board){
-        for(int i=0; i<board.getSize() ; i++){
-            if(numberOfQueenInColumn(board,i) > 1){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public Boolean checkDiameter(Board board,int i, int j){
-        System.out.println(numberOfQueenInDiameter(board,i,j));
-//        for(int i=0; i< board.getSize();i++){
-//            for(int j=0; j<board.getSize();j++){
-//                if(numberOfQueenInDiameter(board,i,j) > 0) return false;
-//            }
-//        }
-        return true;
-    }
-    private int numberOfQueenInRow(Board board,int row){
+    public int numberOfQueenInRow(Board board,int row, int column){
         int number = 0;
         for(int i=0 ; i<board.getSize() ; i++){
-            if(board.getBoard()[row][i] == 1) number++;
+            if(board.getBoard()[row][i] == 1 && i != column){
+                number++;
+            }
         }
         return number;
     }
 
-    private int numberOfQueenInColumn(Board board,int column){
+    public int numberOfQueenInColumn(Board board, int row, int column){
         int number = 0;
         for(int i=0 ; i<board.getSize() ; i++){
-            if(board.getBoard()[i][column] == 1) number++;
+            if(board.getBoard()[i][column] == 1 && i != row) number++;
         }
         return number;
     }
 
-    private int numberOfQueenInDiameter(Board board,int row, int column){
+    public int numberOfQueenInDiameter(Board board,int row, int column){
         int i=row,j=column,number=0;
         while(i > 0 && j > 0){
-
-            System.out.println("-");
             if(board.getBoard()[i][j] == 1 && i != row && j != column) number++;
             i--;
             j--;
         }
-
         i=row;
         j=column;
         while(i > 0 && j < board.getSize()){
-
-            System.out.println("--");
             if(board.getBoard()[i][j] == 1 && i != row && j != column) number++;
             i--;
             j++;
@@ -78,8 +48,6 @@ public class Graph {
         i=row;
         j=column;
         while(i < board.getSize() && j > 0 ){
-
-            System.out.println("---");
             if(board.getBoard()[i][j] == 1 && i != row && j != column) number++;
             i++;
             j--;
@@ -87,22 +55,45 @@ public class Graph {
         i=row;
         j=column;
         while(i < board.getSize() && j <  board.getSize()){
-
-            System.out.println("----");
             if(board.getBoard()[i][j] == 1 && i != row && j != column) number++;
             i++;
             j++;
         }
         return number;
-
     }
 
     public void printBoard(Board board){
+        System.out.print("   ");
         for(int i=0;i<board.getSize();i++){
+            System.out.print(i + "  ");
+        }
+        System.out.println();
+        for(int i=0;i<board.getSize();i++){
+            System.out.print(i + "  ");
             for(int j=0;j<board.getSize();j++) {
                 System.out.print(board.getBoard()[i][j] + "  ");
             }
             System.out.println();
         }
+    }
+
+    public Board changePosition(Board board,int row){
+        int c=0;
+        for(int i=0; i<board.getSize();i++){
+            if(board.getBoard()[row][i] == 1) c=i;
+        }
+
+        if(c == board.getSize()-1){
+            board.setPosition(row,c--);
+        }
+        else if(c == 0){
+            board.setPosition(row,c++);
+        }
+        else{
+            if(new Random().nextBoolean()) board.setPosition(row,c--);
+            else board.setPosition(row,c++);
+
+        }
+        return board;
     }
 }

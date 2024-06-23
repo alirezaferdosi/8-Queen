@@ -9,12 +9,26 @@ public class Tree {
 
     private Board board;
 
-    public Tree(int n){
-        this.board = new Board(n);
+    public Tree(Board board){
+        this.board = board;
     }
 
     public void changePosition(int row, int column){
         board.setPosition(row,column);
+    }
+
+    public void copy(Board board){
+        this.board = board;
+
+
+    }
+
+    public Board getBoard(){
+        return board;
+    }
+
+    public List<Tree> getList(){
+        return list;
     }
 
 

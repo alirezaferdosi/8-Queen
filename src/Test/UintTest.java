@@ -4,6 +4,8 @@ import com.company.Board;
 import com.company.Graph;
 import org.junit.Test;
 
+import java.util.Scanner;
+
 public class UintTest {
     @Test
     public void Test(){
@@ -11,6 +13,8 @@ public class UintTest {
         Board board = new Board(10);
         graph.randomGraph(board);
         graph.printBoard(board);
-        System.out.println(graph.checkDiameter(board,5,7));
+        int n = new Scanner(System.in).nextInt();
+        int m = new Scanner(System.in).nextInt();
+//        System.out.println(graph.checkDiameter(board,n,m));
     }
 }
