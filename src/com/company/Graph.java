@@ -83,19 +83,38 @@ public class Graph {
             if(board.getBoard()[row][i] == 1) c=i;
         }
 
-        if(c == board.getSize()-1){
-            board.setPosition(row,c--);
+        if(!safeRightDiameter(board,row,c) || !safeLeftDiameter(board,row,c) || !safeColumn(board,row,c)){
+            if(c < board.getSize()-1 && c > 0){
+                if(sum(board,row,c++) > sum(board,row,++c)){
+                    board.setPosition(row,--c);
+                }
+                else{
+                    board.setPosition(row,++c);
+                }
+            }
+            else if(c == board.getSize() - 1){
+                if(sum(board,row,c) > sum(board,row,--c)){
+                    board.setPosition(row,--c);
+                }
+                else{
+                    return board;
+                }
+            }
+            else{
+                if(sum(board,row,c) > sum(board,row,--c)){
+                    board.setPosition(row,++c);
+                }
+                else{
+                    return board;
+                }
+            }
+
         }
-        else if(c == 0){
-            board.setPosition(row,c++);
-        }
-        else{
-            board.setPosition(row,c++);
-        }
+
         return board;
     }
 
-    private boolean rightDiameter(Board board, int row, int column){
+    private boolean safeRightDiameter(Board board, int row, int column){
         int i=row;
         int j=column;
         while(i < board.getSize() && j <  board.getSize()){
@@ -115,7 +134,7 @@ public class Graph {
         return true;
     }
 
-    private boolean leftDiameter(Board board, int row, int column){
+    private boolean safeLeftDiameter(Board board, int row, int column){
         int i=row;
         int j=column,number=0;
         while(i > 0 && j > 0){
@@ -133,5 +152,19 @@ public class Graph {
         return true;
     }
 
+    private boolean safeColumn(Board board, int row, int column){
+        int i=0;
+        int j=column;
+        while(i < board.getSize()){
+            if(board.getBoard()[i][column] == 1 && i != row) return false;
+        }
+        return true;
+    }
+
+    private int sum(Board board, int row, int column) {
+        return numberOfQueenInDiameter(board,row,column) +
+                numberOfQueenInColumn(board,row,column) +
+                numberOfQueenInRow(board,row,column);
+    }
 
 }

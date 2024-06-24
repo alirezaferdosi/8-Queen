@@ -5,7 +5,6 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class Operation {
-//    private Tree ROOT;
     private Queue<Tree> queue = new LinkedList<Tree>();
     private Graph graph;
 
@@ -21,7 +20,7 @@ public class Operation {
         Tree temp;
         queue.add(tree);
         while(true){
-//            System.out.println("size "+queue.size());
+            System.out.println("size "+queue.size());
             temp = queue.peek();
             if(fullSafe(queue.peek().getBoard())){
                 graph.printBoard(temp.getBoard());
@@ -39,11 +38,6 @@ public class Operation {
                     queue.add(t);
                 }
                 queue.poll();
-//                temp = new Tree(temp.getBoard());
-//                temp.copy(graph.changePosition(temp.getBoard(),j++));
-//                temp.setList(temp);
-//                graph.printBoard(temp.getBoard());
-//                queue.add(temp);
             }
         }
         return true;
