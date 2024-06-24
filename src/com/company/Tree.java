@@ -19,8 +19,6 @@ public class Tree {
 
     public void copy(Board board){
         this.board = board;
-
-
     }
 
     public Board getBoard(){
@@ -29,6 +27,10 @@ public class Tree {
 
     public List<Tree> getList(){
         return list;
+    }
+
+    public void setList(Tree tree){
+        list.add(tree);
     }
 
 

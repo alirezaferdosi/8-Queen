@@ -90,10 +90,48 @@ public class Graph {
             board.setPosition(row,c++);
         }
         else{
-            if(new Random().nextBoolean()) board.setPosition(row,c--);
-            else board.setPosition(row,c++);
-
+            board.setPosition(row,c++);
         }
         return board;
     }
+
+    private boolean rightDiameter(Board board, int row, int column){
+        int i=row;
+        int j=column;
+        while(i < board.getSize() && j <  board.getSize()){
+            if(board.getBoard()[i][j] == 1 && i != row && j != column) return false;
+            i++;
+            j++;
+        }
+
+        i=row;
+        j=column;
+        while(i > 0 && j < board.getSize()){
+            if(board.getBoard()[i][j] == 1 && i != row && j != column) return false;
+            i--;
+            j++;
+        }
+
+        return true;
+    }
+
+    private boolean leftDiameter(Board board, int row, int column){
+        int i=row;
+        int j=column,number=0;
+        while(i > 0 && j > 0){
+            if(board.getBoard()[i][j] == 1 && i != row && j != column) return false;
+            i--;
+            j--;
+        }
+        i=row;
+        j=column;
+        while(i < board.getSize() && j > 0 ){
+            if(board.getBoard()[i][j] == 1 && i != row && j != column) return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+
 }

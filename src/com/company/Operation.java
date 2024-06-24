@@ -21,21 +21,29 @@ public class Operation {
         Tree temp;
         queue.add(tree);
         while(true){
-            System.out.println("-");
-            System.out.println(queue.size());
-            temp = queue.poll();
-            if(fullSafe(temp.getBoard())){
+//            System.out.println("size "+queue.size());
+            temp = queue.peek();
+            if(fullSafe(queue.peek().getBoard())){
                 graph.printBoard(temp.getBoard());
                 break;
             }
             else{
-                int i=0;
-                for(Tree t: temp.getList()){
-                    t.copy(temp.getBoard());
-                    t.copy(graph.changePosition(t.getBoard(),++i));
-                    queue.add(t);
-//                    queue.add(temp.copy(graph.changePosition(temp.getBoard(),++i)));
+                int j=0;
+                for(int i=0;i<temp.getBoard().getSize();i++){
+                    queue.peek().setList(
+                                        new Tree(graph.changePosition(queue.peek().getBoard(),j++))
+                                        );
+                    graph.printBoard(queue.peek().getBoard());
                 }
+                for(Tree t: queue.peek().getList()){
+                    queue.add(t);
+                }
+                queue.poll();
+//                temp = new Tree(temp.getBoard());
+//                temp.copy(graph.changePosition(temp.getBoard(),j++));
+//                temp.setList(temp);
+//                graph.printBoard(temp.getBoard());
+//                queue.add(temp);
             }
         }
         return true;
